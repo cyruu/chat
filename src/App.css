@@ -43,6 +43,7 @@ button {
   font-size: 1rem;
   color: white;
   border: none;
+  cursor: pointer;
 }
 .buttons {
   width: 100%;

@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 
@@ -29,6 +30,9 @@ class FirebaseServices {
       }
     });
     return false;
+  };
+  logout = async () => {
+    await signOut(auth);
   };
 }
 
