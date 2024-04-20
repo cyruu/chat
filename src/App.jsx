@@ -9,6 +9,8 @@ function App() {
     const loginStatus = firebaseServices.checkLoginStatus();
     if (loginStatus) {
       navigate("/");
+    } else {
+      navigate("/login");
     }
   }, []);
   return (
