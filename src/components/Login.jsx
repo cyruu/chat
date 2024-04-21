@@ -1,14 +1,25 @@
 import React, { useState } from "react";
 import { firebaseServices } from "../index";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setLoggedInUser } from "../redux/slice";
 function Login() {
   const navigate = useNavigate();
+  const dis = useDispatch();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const handleLogin = async () => {
-    const user = await firebaseServices.login(email, pass);
-    if (user) {
+    const loggedInUser = await firebaseServices.login(email, pass);
+    if (loggedInUser) {
+      const user = {
+        loggedInUser: loggedInUser.email,
+        id: loggedInUser.uid,
+      };
+      dis(
+        setLoggedInUser({
+          loggedInUser: user,
+        })
+      );
       navigate("/");
     }
   };

@@ -23,14 +23,7 @@ class FirebaseServices {
       console.log(err.message);
     }
   };
-  checkLoginStatus = async () => {
-    await onAuthStateChanged(auth, (user) => {
-      if (user) {
-        return user;
-      }
-    });
-    return false;
-  };
+
   logout = async () => {
     await signOut(auth);
   };
