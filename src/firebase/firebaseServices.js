@@ -16,12 +16,13 @@ class FirebaseServices {
     }
   };
   login = async (email, password) => {
-    try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
-      return res.user;
-    } catch (err) {
-      console.log(err.message);
-    }
+    // try {
+    //   const res = await signInWithEmailAndPassword(auth, email, password);
+    //   return res.user;
+    // } catch (err) {
+    //   return err.message;
+    // }
+    return await signInWithEmailAndPassword(auth, email, password);
   };
 
   logout = async () => {

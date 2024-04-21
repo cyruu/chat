@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { firebaseServices } from "../index";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -6,26 +6,38 @@ import { setLoggedInUser } from "../redux/slice";
 function Login() {
   const navigate = useNavigate();
   const dis = useDispatch();
+  const [error, setError] = useState(null);
+
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const handleLogin = async () => {
-    const loggedInUser = await firebaseServices.login(email, pass);
-    if (loggedInUser) {
-      const user = {
-        loggedInUser: loggedInUser.email,
-        id: loggedInUser.uid,
-      };
-      dis(
-        setLoggedInUser({
-          loggedInUser: user,
-        })
-      );
-      navigate("/");
+    try {
+      const loggedInUser = await firebaseServices.login(email, pass);
+      if (loggedInUser) {
+        const loggedUser = {
+          loggedInUser: loggedInUser.user.email,
+          id: loggedInUser.user.uid,
+        };
+        dis(
+          setLoggedInUser({
+            loggedInUser: loggedUser,
+          })
+        );
+        navigate("/");
+      }
+    } catch (err) {
+      setError("Invalid Credentials");
+
+      setTimeout(() => {
+        setError(null);
+      }, 1000);
     }
   };
+
   return (
     <div className="login-section displayCenter">
       <div className="login-container">
+        {error ? <div className="error">{error}</div> : ""}
         <h1 className="login-title">Login</h1>
         <div className="input-container">
           <label htmlFor="emailfield">Email</label>
