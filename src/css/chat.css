@@ -1,0 +1,98 @@
+:root {
+  --darkColor: rgb(55, 55, 55);
+  --midColor: rgb(230, 230, 230);
+  --lightColor: rgb(222, 222, 222);
+}
+.home {
+  height: 100vh;
+  width: 100vw;
+}
+.chatContainer {
+  background-color: var(--midColor);
+  display: flex;
+  height: 80%;
+  width: 70%;
+}
+.sidebar {
+  padding: 1rem 0;
+  flex: 0.35;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--darkColor);
+  color: white;
+}
+.chatbox {
+  padding: 1rem 2rem;
+  flex: 0.65;
+  /* background-color: red; */
+}
+.userInfo {
+  width: 100%;
+  display: flex;
+
+  align-items: center;
+}
+.userTitle {
+  flex: 0.9;
+  text-align: center;
+}
+.searchInput {
+  padding: 0.6rem 0.85rem;
+  border: none;
+  font-size: 0.9rem;
+  background-color: var(--midColor);
+  color: var(--darkColor);
+  outline: none;
+  border-radius: 20px;
+  margin: 1rem 0;
+  width: 75%;
+}
+.logoutButton {
+  font-size: 1.1rem;
+  padding: 0.4rem 0.5rem;
+  background-color: var(--midColor);
+  color: var(--darkColor);
+  border-radius: 50%;
+  border: none;
+}
+.allChats {
+  width: 85%;
+  background-color: white;
+  flex-direction: column;
+  display: flex;
+}
+.chatHeader {
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.chatBody {
+  height: 80%;
+  width: 100%;
+  margin: 0.5rem 0 1rem;
+  background: red;
+}
+.chatFooter {
+  width: 100%;
+  /* background-color: blue; */
+  display: flex;
+}
+
+#messageInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  border-radius: 5px;
+  padding: 0.7rem 0.5rem;
+}
+#sendButton {
+  margin-left: 0.5rem;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.4rem;
+}
