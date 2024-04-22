@@ -4,6 +4,7 @@ const chatSlice = createSlice({
   name: "charSlice",
   initialState: {
     loggedInUser: null,
+    selectedChatUserId: null,
     allChatsIds: [],
     allMessages: [],
   },
@@ -15,8 +16,14 @@ const chatSlice = createSlice({
     setAllChatsIds: (state, action) => {
       state.allChatsIds = action.payload.allConversationsIds;
     },
+    // set selected chat user
+    setSelectedChatUserId: (state, action) => {
+      state.selectedChatUserId = action.payload.userId;
+      console.log(state.selectedChatUserId);
+    },
   },
 });
 
 export default chatSlice.reducer;
-export const { setLoggedInUser, setAllChatsIds } = chatSlice.actions;
+export const { setLoggedInUser, setAllChatsIds, setSelectedChatUserId } =
+  chatSlice.actions;

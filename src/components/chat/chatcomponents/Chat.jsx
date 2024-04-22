@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase/firebaseConfig";
-import { doc, getDocs, query, collection, where } from "firebase/firestore";
+import { getDocs, query, collection, where } from "firebase/firestore";
+import { useDispatch } from "react-redux";
+import { setSelectedChatUserId } from "../../../redux/slice";
 
 function Chat({ userId }) {
+  const dis = useDispatch();
   const [username, setUsername] = useState("");
   const getUserInfo = async () => {
     const userIdQuery = query(
@@ -19,7 +22,13 @@ function Chat({ userId }) {
   useEffect(() => {
     getUserInfo();
   }, []);
-  return username ? <button>{username}</button> : "";
+  return username ? (
+    <button onClick={() => dis(setSelectedChatUserId({ userId }))}>
+      {username}
+    </button>
+  ) : (
+    ""
+  );
 }
 
 export default Chat;
