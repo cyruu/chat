@@ -9,6 +9,7 @@ import ChatBox from "./components/chat/ChatBox";
 import ChatContainer from "./components/chat/ChatContainer";
 import AllChats from "./components/chat/chatcomponents/AllChats";
 import Chat from "./components/chat/chatcomponents/Chat";
+import Message from "./components/chat/chatcomponents/Message";
 import ChatBody from "./components/chat/chatcomponents/ChatBody";
 export {
   Login,
@@ -22,5 +23,6 @@ export {
   ChatContainer,
   AllChats,
   Chat,
+  Message,
   ChatBody,
 };

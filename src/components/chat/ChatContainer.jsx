@@ -8,12 +8,13 @@ function ChatContainer() {
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
 
-  // id of users -> sent by me
-  const [sent, setSent] = useState([]);
-  // id of users -> received by me
-  const [received, setReceived] = useState([]);
   const [allConversationsIds, setallSentChats] = useState([]);
   const getData = async () => {
+    // id of users -> sent by me
+    const sent = [];
+    // id of users -> received by me
+    const received = [];
+
     const sentQuery = query(
       collection(db, "messages"),
       //sent by cyrus@gmail.com
