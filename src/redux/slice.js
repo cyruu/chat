@@ -19,7 +19,6 @@ const chatSlice = createSlice({
     // set selected chat user
     setSelectedChatUserId: (state, action) => {
       state.selectedChatUserId = action.payload.userId;
-      console.log(state.selectedChatUserId);
     },
   },
 });

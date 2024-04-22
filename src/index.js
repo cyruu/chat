@@ -9,6 +9,7 @@ import ChatBox from "./components/chat/ChatBox";
 import ChatContainer from "./components/chat/ChatContainer";
 import AllChats from "./components/chat/chatcomponents/AllChats";
 import Chat from "./components/chat/chatcomponents/Chat";
+import ChatBody from "./components/chat/chatcomponents/ChatBody";
 export {
   Login,
   PrivateRoutes,
@@ -21,4 +22,5 @@ export {
   ChatContainer,
   AllChats,
   Chat,
+  ChatBody,
 };
