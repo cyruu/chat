@@ -1,6 +1,6 @@
 :root {
   --darkColor: rgb(55, 55, 55);
-  --midColor: rgb(230, 230, 230);
+  --midColor: rgb(245, 245, 245);
   --lightColor: rgb(222, 222, 222);
 }
 .home {
@@ -73,7 +73,10 @@
   height: 80%;
   width: 100%;
   margin: 0.5rem 0 1rem;
-  background: red;
+  display: flex;
+  flex-direction: column;
+
+  /* background: red; */
 }
 .chatFooter {
   width: 100%;
@@ -96,6 +99,25 @@
   outline: none;
   font-size: 1.4rem;
 }
+.message {
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  max-width: 40%;
+  background-color: var(--lightColor);
+  color: var(--darkColor);
+  border-top-right-radius: 0.9rem;
+  border-bottom-left-radius: 0.9rem;
+  border-bottom-right-radius: 0.9rem;
+  border-top-left-radius: 0px;
+}
 .myMessage {
-  background-color: blue;
+  border-top-left-radius: 0.9rem;
+  border-top-right-radius: 0.9rem;
+  border-bottom-left-radius: 0.9rem;
+  border-bottom-right-radius: 0rem;
+
+  margin-left: auto;
+  color: var(--lightColor);
+  background-color: var(--darkColor);
 }
