@@ -63,7 +63,7 @@ function ChatContainer() {
   return (
     <div className="chatContainer">
       <SideBar />
-      <ChatBox />
+      <ChatBox getData={getData} />
     </div>
   );
 }

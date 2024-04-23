@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { ChatBody } from "../../index";
+import { ChatBody, ChatFooter } from "../../index";
 import { useSelector } from "react-redux";
 import { getDocs, query, collection, where } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
-function ChatBox() {
+function ChatBox({ getData }) {
   const [username, setUsername] = useState("");
+  // another user
   const selectedUserId = useSelector((state) => state.selectedChatUserId);
+  // this user
+  const { loggedInUser } = useSelector((state) => state.loggedInUser);
 
   const getUserInfo = async () => {
     const userIdQuery = query(
@@ -16,7 +19,6 @@ function ChatBox() {
     const userIdSnapshot = await getDocs(userIdQuery);
     userIdSnapshot.forEach((doc) => {
       const user = doc.data();
-
       setUsername(user.username);
     });
   };
@@ -28,12 +30,11 @@ function ChatBox() {
       <div className="chatbox">
         <div className="chatHeader">{username}</div>
         <ChatBody selectedUserId={selectedUserId} />
-        <div className="chatFooter">
-          <input type="text" id="messageInput" placeholder="Enter message" />
-          <button id="sendButton">
-            <i className="ri-send-plane-fill"></i>
-          </button>
-        </div>
+        <ChatFooter
+          sentBy={loggedInUser.id}
+          sentTo={selectedUserId}
+          getData={getData}
+        />
       </div>
     );
   } else {

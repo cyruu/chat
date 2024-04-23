@@ -1,7 +1,8 @@
 :root {
   --darkColor: rgb(55, 55, 55);
-  --midColor: rgb(245, 245, 245);
-  --lightColor: rgb(222, 222, 222);
+
+  --lightcolor: rgb(245, 245, 245);
+  --midColor: rgb(222, 222, 222);
 }
 .home {
   height: 100vh;
@@ -73,10 +74,10 @@
   height: 80%;
   width: 100%;
   margin: 0.5rem 0 1rem;
+
   display: flex;
   flex-direction: column;
-
-  /* background: red; */
+  justify-content: flex-end;
 }
 .chatFooter {
   width: 100%;
@@ -98,26 +99,30 @@
   border: none;
   outline: none;
   font-size: 1.4rem;
+  cursor: pointer;
 }
 .message {
   margin-bottom: 0.3rem;
   font-size: 0.9rem;
-  padding: 0.5rem;
+  padding: 0.5rem 0.7rem;
   max-width: 40%;
-  background-color: var(--lightColor);
-  color: var(--darkColor);
-  border-top-right-radius: 0.9rem;
-  border-bottom-left-radius: 0.9rem;
-  border-bottom-right-radius: 0.9rem;
-  border-top-left-radius: 0px;
 }
 .myMessage {
-  border-top-left-radius: 0.9rem;
-  border-top-right-radius: 0.9rem;
-  border-bottom-left-radius: 0.9rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 0rem;
-
+  margin-right: 1rem;
   margin-left: auto;
-  color: var(--lightColor);
+  color: var(--midColor);
   background-color: var(--darkColor);
+}
+.othersMessage {
+  margin-right: auto;
+  background-color: white;
+  color: var(--darkColor);
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border-top-left-radius: 0px;
 }

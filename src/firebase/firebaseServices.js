@@ -4,7 +4,8 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { auth } from "./firebaseConfig";
+import { auth, db } from "./firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 class FirebaseServices {
   signUp = async (email, password) => {
@@ -16,17 +17,20 @@ class FirebaseServices {
     }
   };
   login = async (email, password) => {
-    // try {
-    //   const res = await signInWithEmailAndPassword(auth, email, password);
-    //   return res.user;
-    // } catch (err) {
-    //   return err.message;
-    // }
     return await signInWithEmailAndPassword(auth, email, password);
   };
 
   logout = async () => {
     await signOut(auth);
+  };
+
+  sendMessage = async (sentMessage) => {
+    try {
+      await addDoc(collection(db, "messages"), sentMessage);
+      console.log("Document added");
+    } catch (e) {
+      alert(e.message);
+    }
   };
 }
 

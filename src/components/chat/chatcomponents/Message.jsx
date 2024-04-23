@@ -14,7 +14,11 @@ function Message({ message, sentBy }) {
   //   }
   // }, []);
   return (
-    <div className={`message ${loggedInUser.id == sentBy ? "myMessage" : ""}`}>
+    <div
+      className={`message ${
+        loggedInUser.id == sentBy ? "myMessage" : "othersMessage"
+      }`}
+    >
       {message}
     </div>
   );
