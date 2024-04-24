@@ -14,7 +14,7 @@ function AllChats() {
             return <Chat key={user.userId} userId={user.userId} />;
           })
         ) : (
-          <div className="red">no users found</div>
+          <p className="notFound">User not found</p>
         )
       ) : (
         allChatsIds.map((userId) => {

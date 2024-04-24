@@ -67,11 +67,15 @@ function ChatBody({ selectedUserId }) {
   }, [allMessages]);
   return (
     <div className="chatBody scrollable">
-      {allMessages.map((msg, i) => {
-        return (
-          <Message key={i} message={msg.sentMessage} sentBy={msg.sentBy} />
-        );
-      })}
+      {allMessages.length > 0 ? (
+        allMessages.map((msg, i) => {
+          return (
+            <Message key={i} message={msg.sentMessage} sentBy={msg.sentBy} />
+          );
+        })
+      ) : (
+        <p className="startConversation">Start conversation</p>
+      )}
     </div>
   );
 }

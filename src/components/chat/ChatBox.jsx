@@ -34,7 +34,12 @@ function ChatBox() {
       </div>
     );
   } else {
-    return <div className="chatbox">choose conversation</div>;
+    return (
+      <div className="chatbox chooseConversation">
+        Choose
+        <br /> a<br /> Conversation
+      </div>
+    );
   }
 }
 
