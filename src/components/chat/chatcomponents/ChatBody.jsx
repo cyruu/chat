@@ -54,9 +54,19 @@ function ChatBody({ selectedUserId }) {
   useEffect(() => {
     getMessages();
   }, [selectedUserId]);
-
+  useEffect(() => {
+    if (allMessages.length < 11) {
+      const scrollableDiv = document.querySelector(".scrollable");
+      scrollableDiv.style.justifyContent = "flex-end";
+    } else {
+      const scrollableDiv = document.querySelector(".scrollable");
+      scrollableDiv.style.justifyContent = "";
+    }
+    const scrollableDiv = document.querySelector(".scrollable");
+    scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+  }, [allMessages]);
   return (
-    <div className="chatBody">
+    <div className="chatBody scrollable">
       {allMessages.map((msg, i) => {
         return (
           <Message key={i} message={msg.sentMessage} sentBy={msg.sentBy} />

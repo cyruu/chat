@@ -8,6 +8,9 @@ const chatSlice = createSlice({
     allChatsIds: [],
     allMessages: [],
     messageSentStatus: false,
+    filteredUsers: [],
+    // am i searchin for a user
+    isSearching: false,
   },
   reducers: {
     setLoggedInUser: (state, action) => {
@@ -24,6 +27,12 @@ const chatSlice = createSlice({
     setAllMessages: (state, action) => {
       state.allMessages = action.payload.allMessages;
     },
+    setFilteredUsers: (state, action) => {
+      state.filteredUsers = action.payload.filteredusers;
+    },
+    setIsSearching: (state, action) => {
+      state.isSearching = action.payload.isSearching;
+    },
   },
 });
 
@@ -33,4 +42,6 @@ export const {
   setAllChatsIds,
   setSelectedChatUserId,
   setAllMessages,
+  setFilteredUsers,
+  setIsSearching,
 } = chatSlice.actions;

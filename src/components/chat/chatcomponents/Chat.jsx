@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../../../firebase/firebaseConfig";
 import { getDocs, query, collection, where } from "firebase/firestore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSelectedChatUserId } from "../../../redux/slice";
 
 function Chat({ userId }) {
   const dis = useDispatch();
   const [username, setUsername] = useState("");
+  const isSearching = useSelector((state) => state.isSearching);
+
   const getUserInfo = async () => {
     const userIdQuery = query(
       collection(db, "users"),
@@ -23,8 +25,15 @@ function Chat({ userId }) {
     getUserInfo();
   }, []);
   return username ? (
-    <button onClick={() => dis(setSelectedChatUserId({ userId }))}>
-      {username}
+    <button
+      className={`chatButton  ${isSearching ? "isSearching" : ""}`}
+      onClick={() => dis(setSelectedChatUserId({ userId }))}
+    >
+      <div className="profilePic"></div>
+      <div className={`chatContent`}>
+        <p className="username">{username}</p>
+        {!isSearching ? <p className="chatMessage">this is msg</p> : ""}
+      </div>
     </button>
   ) : (
     ""

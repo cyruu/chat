@@ -7,6 +7,7 @@ import { setAllMessages } from "../../../redux/slice";
 function ChatFooter({ sentBy, sentTo }) {
   const [message, setMessage] = useState("");
   const dis = useDispatch();
+
   const getMessages = async () => {
     const allMessages = [];
     // sent by cyrus@gmail.com and received by another user
@@ -77,6 +78,7 @@ function ChatFooter({ sentBy, sentTo }) {
         placeholder="Enter message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        autoComplete="off"
       />
       <button type="submit" id="sendButton">
         <i className="ri-send-plane-fill"></i>
