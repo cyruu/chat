@@ -7,6 +7,7 @@ const chatSlice = createSlice({
     selectedChatUserId: null,
     allChatsIds: [],
     allMessages: [],
+    messageSentStatus: false,
   },
   reducers: {
     setLoggedInUser: (state, action) => {

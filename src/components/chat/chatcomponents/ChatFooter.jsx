@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { firebaseServices } from "../../../index";
-function ChatFooter({ sentBy, sentTo, getData }) {
+function ChatFooter({ sentBy, sentTo }) {
   const [message, setMessage] = useState("");
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -14,7 +14,6 @@ function ChatFooter({ sentBy, sentTo, getData }) {
       };
       firebaseServices.sendMessage(msg);
       setMessage("");
-      getData();
     } else {
       console.log("empty");
     }

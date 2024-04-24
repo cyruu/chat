@@ -3,7 +3,7 @@ import { ChatBody, ChatFooter } from "../../index";
 import { useSelector } from "react-redux";
 import { getDocs, query, collection, where } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
-function ChatBox({ getData }) {
+function ChatBox() {
   const [username, setUsername] = useState("");
   // another user
   const selectedUserId = useSelector((state) => state.selectedChatUserId);
@@ -30,11 +30,7 @@ function ChatBox({ getData }) {
       <div className="chatbox">
         <div className="chatHeader">{username}</div>
         <ChatBody selectedUserId={selectedUserId} />
-        <ChatFooter
-          sentBy={loggedInUser.id}
-          sentTo={selectedUserId}
-          getData={getData}
-        />
+        <ChatFooter sentBy={loggedInUser.id} sentTo={selectedUserId} />
       </div>
     );
   } else {
