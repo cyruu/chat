@@ -28,7 +28,18 @@ function ChatBox() {
   if (selectedUserId != null) {
     return (
       <div className="chatbox">
-        <div className="chatHeader">{username}</div>
+        <div className="chatHeader">
+          <button
+            className="backbutton"
+            onClick={() => {
+              const sideBar = document.querySelector(".sidebar");
+              sideBar.style.transform = "translateX(0%)";
+            }}
+          >
+            back
+          </button>
+          {username}
+        </div>
         <ChatBody selectedUserId={selectedUserId} />
         {loggedInUser ? (
           <ChatFooter sentBy={loggedInUser.id} sentTo={selectedUserId} />

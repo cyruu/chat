@@ -1,5 +1,6 @@
 import "./App.css";
 import "./css/chat.css";
+import "./css/responsiveChat.css";
 import { Login, Signup, Home, firebaseServices, PrivateRoutes } from "./index";
 import { Routes, Route } from "react-router";
 
