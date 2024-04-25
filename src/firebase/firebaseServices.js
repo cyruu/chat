@@ -44,17 +44,27 @@ class FirebaseServices {
     try {
       const storageRef = ref(storage, "profilePics/" + file.name);
       const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on("state_changed", async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Handle upload progress if needed
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          console.error("Error uploading file:", error);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
-        // Store the download URL along with the user ID in Firebase database
-        await addDoc(collection(db, "users"), {
-          userId: userId,
-          imageUrl: downloadURL,
-        });
+          // Store the download URL along with the user ID in Firebase database
+          await addDoc(collection(db, "profilepictures"), {
+            userId: userId,
+            imageUrl: downloadURL,
+          });
 
-        console.log("File uploaded and URL stored:", downloadURL);
-      });
+          console.log("File uploaded and URL stored:", downloadURL);
+        }
+      );
     } catch (error) {
       console.log(error.message);
     }
