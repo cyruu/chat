@@ -67,10 +67,10 @@ function SideBar() {
   return (
     <div className="sidebar">
       <div className="userInfo">
-        <p className="userTitle">
+        <div className="userTitle">
           <div className="profilePic"></div>
           <p className="myUsername ">{username}</p>
-        </p>
+        </div>
         <button className="logoutButton" onClick={handleLogout}>
           <i className="ri-logout-circle-line"></i>
         </button>

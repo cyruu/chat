@@ -7,9 +7,12 @@ function Login() {
   const navigate = useNavigate();
   const dis = useDispatch();
   const [error, setError] = useState(null);
-
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const handleShowPasword = () => {
+    setShowPassword((prev) => !prev);
+  };
   const handleLogin = async () => {
     try {
       const loggedInUser = await firebaseServices.login(email, pass);
@@ -47,16 +50,27 @@ function Login() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="off"
           />
         </div>
         <div className="input-container">
-          <label htmlFor="passfield">Password</label>
+          <label htmlFor="passfield">
+            Password
+            <button className="passwordButton" onClick={handleShowPasword}>
+              {showPassword ? (
+                <i className="ri-eye-off-fill"></i>
+              ) : (
+                <i className="ri-eye-fill"></i>
+              )}
+            </button>
+          </label>
           <input
-            type="password"
+            type={`${showPassword ? "text" : "password"}`}
             id="passfield"
             required
             value={pass}
             onChange={(e) => setPass(e.target.value)}
+            autoComplete="off"
           />
         </div>
         <div className="buttons">

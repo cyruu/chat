@@ -30,7 +30,11 @@ function ChatBox() {
       <div className="chatbox">
         <div className="chatHeader">{username}</div>
         <ChatBody selectedUserId={selectedUserId} />
-        <ChatFooter sentBy={loggedInUser.id} sentTo={selectedUserId} />
+        {loggedInUser ? (
+          <ChatFooter sentBy={loggedInUser.id} sentTo={selectedUserId} />
+        ) : (
+          ""
+        )}
       </div>
     );
   } else {

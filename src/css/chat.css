@@ -60,6 +60,7 @@
   color: var(--darkColor);
   border-radius: 50%;
   border: none;
+  cursor: pointer;
 }
 .allChats {
   width: 100%;
@@ -195,4 +196,12 @@
   font-weight: bold;
   color: rgba(0, 0, 0, 0.4);
   margin-bottom: 1rem;
+}
+.passwordButton {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  padding: 0.3rem;
+  margin-left: 0.25rem;
 }

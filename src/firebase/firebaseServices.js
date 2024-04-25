@@ -32,6 +32,17 @@ class FirebaseServices {
       alert(e.message);
     }
   };
+  addNewUserToUsersTable = async (userId, username) => {
+    try {
+      await addDoc(collection(db, "users"), {
+        userId: userId,
+        username: username,
+      });
+      console.log("new user" + userId, username);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 }
 
 export const firebaseServices = new FirebaseServices();
