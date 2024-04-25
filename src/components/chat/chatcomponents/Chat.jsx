@@ -35,7 +35,12 @@ function Chat({ userId }) {
         }
       }}
     >
-      <div className="profilePic"></div>
+      <div className="profilePic">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/chattest-6582a.appspot.com/o/nar.png?alt=media&token=8429799a-43c0-43b5-b3d7-1d7e9ea8350c"
+          height="100%"
+        />
+      </div>
       <div className={`chatContent`}>
         <p className="username">{username}</p>
         {!isSearching ? <p className="chatMessage">this is msg</p> : ""}
