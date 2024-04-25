@@ -29,6 +29,12 @@ function ChatBox() {
     return (
       <div className="chatbox">
         <div className="chatHeader">
+          <div className={`chatButton isSearching`}>
+            <div className="insideChatProfilePic"></div>
+            <div className={`chatContent`}>
+              <p className="insideChatUsername">{username}</p>
+            </div>
+          </div>
           <button
             className="backbutton"
             onClick={() => {
@@ -36,9 +42,8 @@ function ChatBox() {
               sideBar.style.transform = "translateX(0%)";
             }}
           >
-            back
+            <i className="ri-arrow-left-line"></i>
           </button>
-          {username}
         </div>
         <ChatBody selectedUserId={selectedUserId} />
         {loggedInUser ? (

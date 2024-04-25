@@ -8,6 +8,7 @@
 .home {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 .chatContainer {
   background-color: var(--midColor);
@@ -29,7 +30,6 @@
 .chatbox {
   padding: 1rem 2rem;
   flex: 0.68;
-  /* background-color: red; */
 }
 .userInfo {
   width: 100%;
@@ -74,7 +74,7 @@
 .chatHeader {
   height: 2.5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
@@ -92,18 +92,25 @@
   display: none;
 }
 .chatFooter {
-  width: 100%;
-  /* background-color: blue; */
+  max-width: 100%;
+  background-color: var(--lightcolor);
   display: flex;
+  padding: 0 0.6rem;
+  border-radius: 20px;
 }
-
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
 #messageInput {
   flex: 1;
   border: none;
   outline: none;
+  background: none;
   font-size: 0.95rem;
   border-radius: 5px;
-  padding: 0.7rem 0.5rem;
+  padding: 0.8rem 0.5rem;
 }
 #sendButton {
   margin-left: 0.5rem;
@@ -200,13 +207,23 @@
   margin-bottom: 1rem;
 }
 .passwordButton {
-  background: none;
-  border: none;
-  outline: none;
   font-size: 1.1rem;
   padding: 0.3rem;
   margin-left: 0.25rem;
 }
 .backbutton {
   display: none;
+  font-size: 1.5rem;
+}
+.insideChatProfilePic {
+  height: 35px;
+  width: 35px;
+  background-color: white;
+  border-radius: 50%;
+}
+.insideChatUsername {
+  font-weight: bold;
+  font-size: 1rem;
+
+  color: var(--darkColor);
 }

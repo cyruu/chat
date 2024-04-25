@@ -29,8 +29,10 @@ function Chat({ userId }) {
       className={`chatButton  ${isSearching ? "isSearching" : ""}`}
       onClick={() => {
         dis(setSelectedChatUserId({ userId }));
-        const sideBar = document.querySelector(".sidebar");
-        sideBar.style.transform = "translateX(-100%)";
+        if (window.screen.width < 431) {
+          const sideBar = document.querySelector(".sidebar");
+          sideBar.style.transform = "translateX(-100%)";
+        }
       }}
     >
       <div className="profilePic"></div>

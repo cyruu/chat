@@ -55,7 +55,7 @@ function ChatBody({ selectedUserId }) {
     getMessages();
   }, [selectedUserId]);
   useEffect(() => {
-    if (allMessages.length < 11) {
+    if (allMessages.length < 14) {
       const scrollableDiv = document.querySelector(".scrollable");
       scrollableDiv.style.justifyContent = "flex-end";
     } else {

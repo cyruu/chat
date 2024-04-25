@@ -11,10 +11,27 @@
   }
   .chatbox {
     flex: 1;
-    height: 100%;
+    height: 97.9%;
     width: 100%;
+    padding: 0.6rem 1.2rem;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .backbutton {
     display: block;
+  }
+  .chatHeader {
+    height: 7%;
+    /* background-color: green; */
+  }
+  .chatBody {
+    height: 80%;
+    /* background-color: yellow; */
+    margin: 0;
+  }
+  .chatFooter {
+    margin-bottom: 0.7rem;
   }
 }
