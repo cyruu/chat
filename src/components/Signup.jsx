@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 function Signup() {
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [username, setUsername] = useState("");
@@ -12,17 +13,26 @@ function Signup() {
     setShowPassword((prev) => !prev);
   };
   const handlesignup = async () => {
-    const user = await firebaseServices.signUp(email, pass);
+    try {
+      const user = await firebaseServices.signUp(email, pass);
 
-    if (user) {
-      await firebaseServices.addNewUserToUsersTable(user.uid, username);
-      // add id and display name to users table
-      navigate("/login");
+      if (user) {
+        await firebaseServices.addNewUserToUsersTable(user.uid, username);
+        // add id and display name to users table
+        navigate("/login");
+      }
+    } catch (err) {
+      setError("Somethings Wrong!");
+
+      setTimeout(() => {
+        setError(null);
+      }, 1000);
     }
   };
   return (
     <div className="signup-section displayCenter">
       <div className="signup-container">
+        {error ? <div className="error">{error}</div> : ""}
         <h1 className="signup-title">Signup</h1>
         <div className="input-container">
           <label htmlFor="semailfield">Email</label>

@@ -9,12 +9,8 @@ import { collection, addDoc } from "firebase/firestore";
 
 class FirebaseServices {
   signUp = async (email, password) => {
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      return res.user;
-    } catch (err) {
-      alert(err.message);
-    }
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    return res.user;
   };
   login = async (email, password) => {
     return await signInWithEmailAndPassword(auth, email, password);

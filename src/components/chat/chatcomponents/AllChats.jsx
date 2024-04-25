@@ -16,10 +16,12 @@ function AllChats() {
         ) : (
           <p className="notFound">User not found</p>
         )
-      ) : (
+      ) : allChatsIds.length > 0 ? (
         allChatsIds.map((userId) => {
           return <Chat key={userId} userId={userId} />;
         })
+      ) : (
+        <p className="notFound">Loading chat...</p>
       )}
     </div>
   );
