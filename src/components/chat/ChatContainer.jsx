@@ -9,6 +9,7 @@ import {
   doc,
   onSnapshot,
   orderBy,
+  limit,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { setAllChatsIds } from "../../redux/slice";
@@ -28,12 +29,14 @@ function ChatContainer() {
     const sentQuery = query(
       collection(db, "messages"),
       //sent by cyrus@gmail.com
-      where("sentBy", "==", loggedInUser.id)
+      where("sentBy", "==", loggedInUser.id),
+      orderBy("sentTime", "desc")
     );
     const receivedQuery = query(
       collection(db, "messages"),
       //sent to cyrus@gmail.com
-      where("sentTo", "==", loggedInUser.id)
+      where("sentTo", "==", loggedInUser.id),
+      orderBy("sentTime", "desc")
     );
 
     const sentSnapshot = await getDocs(sentQuery);
@@ -66,44 +69,9 @@ function ChatContainer() {
     dis(setAllChatsIds({ allConversationsIds }));
     // get username of all users that have sent or received message from this user
   };
-  async function test() {
-    const allConversationsIds = [];
-    // id of users -> sent by me
-    const sent = [];
-    // id of users -> received by me
-    const received = [];
-    const sentQuery = query(
-      collection(db, "messages"),
-      //sent by cyrus@gmail.com
-      where("sentBy", "==", loggedInUser.id),
-      where("sentTo", "==", "42hb0ZUOOOgIGUTUZRt4mze38q72"),
-      orderBy("sentTime", "desc")
-    );
-    const receivedQuery = query(
-      collection(db, "messages"),
-      //sent to cyrus@gmail.com
-      where("sentBy", "==", "42hb0ZUOOOgIGUTUZRt4mze38q72"),
-      where("sentTo", "==", loggedInUser.id),
-      orderBy("sentTime", "desc")
-    );
-    const sentSnapshot = await getDocs(sentQuery);
-    const receivedSnapshot = await getDocs(receivedQuery);
-    // maile pathako
-    sentSnapshot.forEach((doc) => {
-      const eachMessage = doc.data();
-      // koslai pathako
-      console.log(eachMessage);
-    });
-    // maile pako
-    receivedSnapshot.forEach((doc) => {
-      const eachMessage = doc.data();
-      console.log(eachMessage);
-    });
-  }
+
   useEffect(() => {
-    console.log("updates");
     getData();
-    test();
   }, [allMessages]);
 
   return (

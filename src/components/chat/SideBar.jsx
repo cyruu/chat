@@ -82,7 +82,9 @@ function SideBar() {
           <div className="profilePic">
             <img src={profilePic} />
           </div>
-          <p className="myUsername ">{username}</p>
+          <p className="myUsername ">
+            <b>{username}</b>
+          </p>
         </div>
         <button className="logoutButton" onClick={handleLogout}>
           <i className="ri-logout-circle-line"></i>
