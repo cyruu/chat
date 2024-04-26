@@ -41,7 +41,7 @@ function ChatBox() {
       <div className="chatbox">
         <div className="chatHeader">
           <div className={`chatButton isSearching`}>
-            <div className="profilePic">
+            <div className="selectedprofilePic">
               <img src={profilePic} />
             </div>
             <div className={`chatContent`}>

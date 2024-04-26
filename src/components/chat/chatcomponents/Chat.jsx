@@ -16,6 +16,7 @@ function Chat({ userId }) {
   const [username, setUsername] = useState("");
   const [profilePic, setProfilePic] = useState("");
   const isSearching = useSelector((state) => state.isSearching);
+  const allMessages = useSelector((state) => state.allMessages);
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
   const [latestMessage, setLatestMessage] = useState("");
   const [yourMessage, setYourMessage] = useState(false);
@@ -88,8 +89,10 @@ function Chat({ userId }) {
   }
   useEffect(() => {
     getUserInfo();
-    getLatestMessage();
   }, []);
+  useEffect(() => {
+    getLatestMessage();
+  }, [allMessages]);
   return username ? (
     <button
       className={`chatButton  ${isSearching ? "isSearching" : ""}`}

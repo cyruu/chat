@@ -34,4 +34,8 @@
   .chatFooter {
     margin-bottom: 0.7rem;
   }
+  .searchInput {
+    margin: 1.5rem 0;
+    width: 85%;
+  }
 }
