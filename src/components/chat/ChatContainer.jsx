@@ -29,14 +29,12 @@ function ChatContainer() {
     const sentQuery = query(
       collection(db, "messages"),
       //sent by cyrus@gmail.com
-      where("sentBy", "==", loggedInUser.id),
-      orderBy("sentTime", "desc")
+      where("sentBy", "==", loggedInUser.id)
     );
     const receivedQuery = query(
       collection(db, "messages"),
       //sent to cyrus@gmail.com
-      where("sentTo", "==", loggedInUser.id),
-      orderBy("sentTime", "desc")
+      where("sentTo", "==", loggedInUser.id)
     );
 
     const sentSnapshot = await getDocs(sentQuery);
