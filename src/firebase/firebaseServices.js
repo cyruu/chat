@@ -69,6 +69,18 @@ class FirebaseServices {
       console.log(error.message);
     }
   };
+  addDefaultProfilePicture = async (userId) => {
+    try {
+      const defaultImage =
+        "https://t3.ftcdn.net/jpg/00/64/67/80/360_F_64678017_zUpiZFjj04cnLri7oADnyMH0XBYyQghG.jpg";
+      await addDoc(collection(db, "profilepictures"), {
+        userId: userId,
+        imageUrl: defaultImage,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 
 export const firebaseServices = new FirebaseServices();

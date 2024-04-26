@@ -12,7 +12,7 @@ import {
 
 function SideBar() {
   const [username, setUsername] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const navigate = useNavigate();
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
@@ -60,6 +60,17 @@ function SideBar() {
       const user = doc.data();
       setUsername(user.username);
     });
+
+    const profileQuery = query(
+      collection(db, "profilepictures"),
+      where("userId", "==", loggedInUser.id)
+    );
+
+    const profileSnapshot = await getDocs(profileQuery);
+    profileSnapshot.forEach((doc) => {
+      const user = doc.data();
+      setProfilePic(user.imageUrl);
+    });
   };
   useEffect(() => {
     getUserInfo();
@@ -68,7 +79,9 @@ function SideBar() {
     <div className="sidebar">
       <div className="userInfo">
         <div className="userTitle">
-          <div className="profilePic"></div>
+          <div className="profilePic">
+            <img src={profilePic} />
+          </div>
           <p className="myUsername ">{username}</p>
         </div>
         <button className="logoutButton" onClick={handleLogout}>

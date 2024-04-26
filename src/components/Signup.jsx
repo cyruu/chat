@@ -28,7 +28,7 @@ function Signup() {
         if (file) {
           await firebaseServices.addProfilePicture(user.uid, file);
         } else {
-          console.log("default profile");
+          await firebaseServices.addDefaultProfilePicture(user.uid);
         }
         navigate("/login");
       }

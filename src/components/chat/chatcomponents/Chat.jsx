@@ -7,6 +7,7 @@ import { setSelectedChatUserId } from "../../../redux/slice";
 function Chat({ userId }) {
   const dis = useDispatch();
   const [username, setUsername] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const isSearching = useSelector((state) => state.isSearching);
 
   const getUserInfo = async () => {
@@ -15,10 +16,22 @@ function Chat({ userId }) {
       //sent by cyrus@gmail.com
       where("userId", "==", userId)
     );
+
     const userIdSnapshot = await getDocs(userIdQuery);
     userIdSnapshot.forEach((doc) => {
       const user = doc.data();
       setUsername(user.username);
+    });
+
+    const profileQuery = query(
+      collection(db, "profilepictures"),
+      where("userId", "==", userId)
+    );
+
+    const profileSnapshot = await getDocs(profileQuery);
+    profileSnapshot.forEach((doc) => {
+      const user = doc.data();
+      setProfilePic(user.imageUrl);
     });
   };
   useEffect(() => {
@@ -36,10 +49,7 @@ function Chat({ userId }) {
       }}
     >
       <div className="profilePic">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/chattest-6582a.appspot.com/o/nar.png?alt=media&token=8429799a-43c0-43b5-b3d7-1d7e9ea8350c"
-          height="100%"
-        />
+        <img src={profilePic} />
       </div>
       <div className={`chatContent`}>
         <p className="username">{username}</p>
