@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { firebaseServices } from "../../../index";
-import { useDispatch } from "react-redux";
-import { getDocs, query, collection, where } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getDocs,
+  query,
+  collection,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
 function ChatFooter({ sentBy, sentTo }) {
   const [message, setMessage] = useState("");
   const dis = useDispatch();
-
+  const selectedChatUserId = useSelector((state) => state.selectedChatUserId);
+  const allMessages = useSelector((state) => state.allMessages);
   const getMessages = async () => {
     const allMessages = [];
     // sent by cyrus@gmail.com and received by another user
@@ -20,6 +27,7 @@ function ChatFooter({ sentBy, sentTo }) {
     const sentSnapshot = await getDocs(sentQuery);
     sentSnapshot.forEach((doc) => {
       const user = doc.data();
+      console.log("sent", user);
       allMessages.push(user);
     });
     // sent by others and received by cyrus@gmail.com
@@ -47,12 +55,12 @@ function ChatFooter({ sentBy, sentTo }) {
     allMessages.forEach((obj) => {
       obj.sentTime = new Date(obj.sentTime).toISOString();
     });
-
+    console.log(allMessages);
     //send data to slice state
     dis(setAllMessages({ allMessages }));
   };
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = async (e) => {
     e.preventDefault();
     if (message != "") {
       const date = new Date();
@@ -62,14 +70,15 @@ function ChatFooter({ sentBy, sentTo }) {
         sentTime: date.toISOString(),
         sentMessage: message,
       };
-      firebaseServices.sendMessage(msg);
+      await firebaseServices.sendMessage(msg);
+      getMessages();
       setMessage("");
       console.log("ADDED");
-      getMessages();
     } else {
       console.log("empty");
     }
   };
+
   return (
     <form className="chatFooter" onSubmit={handleSendMessage}>
       <input

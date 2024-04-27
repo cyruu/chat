@@ -55,6 +55,7 @@ function ChatBody({ selectedUserId }) {
     });
 
     //send data to slice state
+    console.log(allMessages);
     dis(setAllMessages({ allMessages }));
   };
   useEffect(() => {
@@ -71,16 +72,7 @@ function ChatBody({ selectedUserId }) {
     const scrollableDiv = document.querySelector(".scrollable");
     scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
   }, [allMessages]);
-  useEffect(() => {
-    onSnapshot(collection(db, "messages"), (snapshot) => {
-      // This function will be called whenever the 'messages' collection changes
-      snapshot.docChanges().forEach((change) => {
-        if (change.type === "added") {
-          getMessages();
-        }
-      });
-    });
-  }, []);
+
   return (
     <div className="chatBody scrollable">
       {allMessages.length > 0 ? (
