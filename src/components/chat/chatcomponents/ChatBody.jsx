@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getDocs, query, collection, where } from "firebase/firestore";
+import {
+  getDocs,
+  query,
+  collection,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
 import { Message } from "../../../index";
@@ -65,6 +71,16 @@ function ChatBody({ selectedUserId }) {
     const scrollableDiv = document.querySelector(".scrollable");
     scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
   }, [allMessages]);
+  useEffect(() => {
+    onSnapshot(collection(db, "messages"), (snapshot) => {
+      // This function will be called whenever the 'messages' collection changes
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          getMessages();
+        }
+      });
+    });
+  }, []);
   return (
     <div className="chatBody scrollable">
       {allMessages.length > 0 ? (
