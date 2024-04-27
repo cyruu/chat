@@ -27,7 +27,7 @@ function ChatFooter({ sentBy, sentTo }) {
     const sentSnapshot = await getDocs(sentQuery);
     sentSnapshot.forEach((doc) => {
       const user = doc.data();
-      console.log("sent", user);
+
       allMessages.push(user);
     });
     // sent by others and received by cyrus@gmail.com

@@ -55,7 +55,6 @@ function ChatBody({ selectedUserId }) {
     });
 
     //send data to slice state
-    console.log(allMessages);
     dis(setAllMessages({ allMessages }));
   };
   useEffect(() => {
