@@ -75,7 +75,9 @@ function Login() {
         </div>
         <div className="buttons">
           <button onClick={handleLogin}>Login</button>
-          <Link to="/signup">Create an account?</Link>
+          <Link to="/signup" style={{ color: "var(--lightColor)" }}>
+            Create an account?
+          </Link>
         </div>
       </div>
     </div>

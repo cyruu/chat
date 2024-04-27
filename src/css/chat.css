@@ -7,6 +7,7 @@
   --myMessage: #317e9f;
   --otherMessage: rgb(90, 90, 90);
 }
+
 .home {
   height: 100vh;
   width: 100vw;
@@ -230,6 +231,8 @@ button {
   font-size: 1.1rem;
   padding: 0.3rem;
   margin-left: 0.25rem;
+  color: var(--lightcolor);
+  cursor: pointer;
 }
 .backbutton {
   display: none;
@@ -272,18 +275,36 @@ button {
   border-radius: 50%;
 }
 .camIcon {
-  background-color: var(--darkColor);
+  background-color: var(--lightcolor);
   border-radius: 50%;
   padding: 0.4rem;
   position: absolute;
   z-index: 10;
   font-size: 1.4rem;
 
-  right: 0;
-  bottom: -8px;
-  color: var(--lightcolor);
-  /* border: 2px solid var(--darkColor); */
+  right: -5px;
+  bottom: -10px;
+  color: var(--darkColor);
+  border: 1px solid var(--darkColor);
 }
 .imagefield {
   margin-bottom: 2rem;
+}
+.login-section,
+.signup-section {
+  background-color: var(--darkColor);
+  color: var(--lightcolor);
+}
+#emailfield,
+#passfield,
+#sUsernameField,
+#spassfield,
+#semailfield {
+  background: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--lightcolor);
+}
+.buttons button {
+  background-color: var(--lightcolor);
+  color: var(--darkColor);
 }

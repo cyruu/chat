@@ -108,7 +108,9 @@ function Signup() {
         <div className="buttons">
           <button onClick={handlesignup}>Sign Up</button>
 
-          <Link to="/login">Already have an account?</Link>
+          <Link to="/login" style={{ color: "var(--lightColor)" }}>
+            Already have an account?
+          </Link>
         </div>
       </div>
     </div>
