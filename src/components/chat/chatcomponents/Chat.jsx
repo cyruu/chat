@@ -80,11 +80,13 @@ function Chat({ userId }) {
     latestMessage.sort((a, b) => {
       return b.sentTime - a.sentTime;
     });
-    setLatestMessage(latestMessage[0].sentMessage);
-    if (latestMessage[0].sentBy == loggedInUser.id) {
-      setYourMessage(true);
-    } else {
-      setYourMessage(false);
+    if (latestMessage) {
+      setLatestMessage(latestMessage[0].sentMessage);
+      if (latestMessage[0].sentBy == loggedInUser.id) {
+        setYourMessage(true);
+      } else {
+        setYourMessage(false);
+      }
     }
   }
   useEffect(() => {

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Chat } from "../../..";
 import { useSelector } from "react-redux";
+
 function AllChats() {
   const allChatsIds = useSelector((state) => state.allChatsIds);
   const isSearching = useSelector((state) => state.isSearching);
