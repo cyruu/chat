@@ -38,6 +38,8 @@ function ChatContainer() {
       where("sentTo", "==", loggedInUser.id)
     );
 
+    ///////////// sabai chat lai yeuta ma line
+    // teslai sort garne ani unique id matra select agne
     const sentSnapshot = await getDocs(sentQuery);
     const receivedSnapshot = await getDocs(receivedQuery);
     // maile pathako
@@ -63,7 +65,7 @@ function ChatContainer() {
       }
     });
     // kosle pathako malai tesko id
-    received.map((sentToId) => {
+    received.map((sentToId, i) => {
       if (!allConversationsIds.includes(sentToId)) {
         allConversationsIds.push(sentToId);
         allConvos.push(receivedConvos[i]);

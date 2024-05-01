@@ -13,7 +13,7 @@ import { setAllMessages } from "../../../redux/slice";
 function ChatFooter({ sentBy, sentTo }) {
   const [message, setMessage] = useState("");
   const dis = useDispatch();
-  const selectedChatUserId = useSelector((state) => state.selectedChatUserId);
+  const loggedInUser = useSelector((state) => state.loggedInUser);
   const allMessages = useSelector((state) => state.allMessages);
   const getMessages = async () => {
     const allMessages = [];
@@ -40,7 +40,9 @@ function ChatFooter({ sentBy, sentTo }) {
     const receivedSnapshot = await getDocs(receivedQuery);
     receivedSnapshot.forEach((doc) => {
       const user = doc.data();
-      allMessages.push(user);
+      if (!user.sentTo == loggedInUser.id) {
+        allMessages.push(user);
+      }
     });
 
     // arrange message in order

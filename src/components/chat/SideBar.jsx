@@ -13,6 +13,7 @@ import {
 function SideBar() {
   const [username, setUsername] = useState("");
   const [profilePic, setProfilePic] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
@@ -22,14 +23,22 @@ function SideBar() {
     dis(setLoggedInUser({ loggedInUser: null }));
     navigate("/login");
   };
-  const handleSearchUser = async ({ target }) => {
+  useEffect(() => {
+    const searchDebounce = setTimeout(() => {
+      handleSearchUser();
+    }, 500);
+    return () => {
+      clearTimeout(searchDebounce);
+    };
+  }, [searchTerm]);
+  const handleSearchUser = async () => {
     const filteredusers = [];
     // typed something
-    if (target.value != "") {
+    if (searchTerm != "") {
       const searchUserQuery = query(
         collection(db, "users"),
-        where("username", ">=", target.value),
-        where("username", "<=", target.value + "\uf8ff")
+        where("username", ">=", searchTerm),
+        where("username", "<=", searchTerm + "\uf8ff")
       );
 
       const searchSnapshot = await getDocs(searchUserQuery);
@@ -95,7 +104,7 @@ function SideBar() {
         type="text"
         placeholder="Search"
         className="searchInput"
-        onChange={handleSearchUser}
+        onChange={(e) => setSearchTerm(e.target.value)}
         autoComplete="off"
       />
       {/* all chat */}

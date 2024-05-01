@@ -80,7 +80,7 @@ function Chat({ userId }) {
     latestMessage.sort((a, b) => {
       return b.sentTime - a.sentTime;
     });
-    if (latestMessage) {
+    if (latestMessage.length > 0) {
       setLatestMessage(latestMessage[0].sentMessage);
       if (latestMessage[0].sentBy == loggedInUser.id) {
         setYourMessage(true);

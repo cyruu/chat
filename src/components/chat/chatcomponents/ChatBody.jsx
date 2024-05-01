@@ -11,6 +11,7 @@ import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
 import { Message } from "../../../index";
 function ChatBody({ selectedUserId }) {
+  console.log("selected", selectedUserId);
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
   const allMessages = useSelector((state) => state.allMessages);
@@ -38,7 +39,10 @@ function ChatBody({ selectedUserId }) {
     const receivedSnapshot = await getDocs(receivedQuery);
     receivedSnapshot.forEach((doc) => {
       const user = doc.data();
-      allMessages.push(user);
+      // afai send garda double message aairako thyo
+      if (!user.sentTo == loggedInUser.id) {
+        allMessages.push(user);
+      }
     });
 
     // arrange message in order
@@ -53,7 +57,7 @@ function ChatBody({ selectedUserId }) {
     allMessages.forEach((obj) => {
       obj.sentTime = new Date(obj.sentTime).toISOString();
     });
-
+    console.log("message", allMessages);
     //send data to slice state
     dis(setAllMessages({ allMessages }));
   };
