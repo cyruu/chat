@@ -17,10 +17,10 @@ function ChatContainer() {
 
   const allMessages = useSelector((state) => state.allMessages);
   const getData = async () => {
-    const allConversationsIds = [];
     const sentConvos = [];
     const receivedConvos = [];
-    const allConvos = [];
+    let allConvos = [];
+    const allConvosId = [];
     // id of users -> sent by me
     const sent = [];
     // id of users -> received by me
@@ -56,30 +56,27 @@ function ChatContainer() {
       received.push(eachMessage.sentBy);
       receivedConvos.push(eachMessage);
     });
-    // get all unique id in single array of all people who sent or received msg from cyrus@gmail.com
-    //koslai pahtako tesko id
-    sent.map((sentById, i) => {
-      if (!allConversationsIds.includes(sentById)) {
-        allConversationsIds.push(sentById);
-        allConvos.push(sentConvos[i]);
-      }
-    });
-    // kosle pathako malai tesko id
-    received.map((sentToId, i) => {
-      if (!allConversationsIds.includes(sentToId)) {
-        allConversationsIds.push(sentToId);
-        allConvos.push(receivedConvos[i]);
-      }
-    });
+    // all conversations
+    allConvos = sentConvos.concat(receivedConvos);
     allConvos.forEach((obj) => {
       obj.sentTime = new Date(obj.sentTime);
     });
     allConvos.sort((a, b) => {
       return b.sentTime - a.sentTime;
     });
-    convoIds = allConvos.map((convo) => convo.sentTo);
-
-    dis(setAllChatsIds({ allConversationsIds: convoIds }));
+    allConvos.map((convo) => {
+      if (convo.sentBy == loggedInUser.id) {
+        if (!allConvosId.includes(convo.sentTo)) {
+          allConvosId.push(convo.sentTo);
+        }
+      } else {
+        if (!allConvosId.includes(convo.sentBy)) {
+          allConvosId.push(convo.sentBy);
+        }
+      }
+    });
+    console.log(allConvosId);
+    dis(setAllChatsIds({ allConversationsIds: allConvosId }));
     // get username of all users that have sent or received message from this user
   };
 
