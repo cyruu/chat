@@ -30,20 +30,22 @@ function ChatBody({ selectedUserId }) {
       allMessages.push(user);
     });
     // sent by others and received by cyrus@gmail.com
-    const receivedQuery = query(
-      collection(db, "messages"),
-      //sent by cyrus@gmail.com
-      where("sentBy", "==", selectedUserId),
-      where("sentTo", "==", loggedInUser.id)
-    );
-    const receivedSnapshot = await getDocs(receivedQuery);
-    receivedSnapshot.forEach((doc) => {
-      const user = doc.data();
-      // afai send garda double message aairako thyo
-      if (!user.sentTo == loggedInUser.id) {
+    if (!loggedInUser.id == selectedUserId) {
+      const receivedQuery = query(
+        collection(db, "messages"),
+        //sent by cyrus@gmail.com
+        where("sentBy", "==", selectedUserId),
+        where("sentTo", "==", loggedInUser.id)
+      );
+      const receivedSnapshot = await getDocs(receivedQuery);
+      receivedSnapshot.forEach((doc) => {
+        const user = doc.data();
+        // afai send garda double message aairako thyo
+        // if (!user.sentTo == loggedInUser.id) {
         allMessages.push(user);
-      }
-    });
+        // }
+      });
+    }
 
     // arrange message in order
     allMessages.forEach((obj) => {

@@ -23,7 +23,7 @@ const chatSlice = createSlice({
     // set selected chat user
     setSelectedChatUserId: (state, action) => {
       state.selectedChatUserId = action.payload.userId;
-      console.log(state.selectedChatUserId);
+      // console.log(state.selectedChatUserId);
     },
     setAllMessages: (state, action) => {
       state.allMessages = action.payload.allMessages;

@@ -31,19 +31,21 @@ function ChatFooter({ sentBy, sentTo }) {
       allMessages.push(user);
     });
     // sent by others and received by cyrus@gmail.com
-    const receivedQuery = query(
-      collection(db, "messages"),
-      //sent by cyrus@gmail.com
-      where("sentBy", "==", sentTo),
-      where("sentTo", "==", sentBy)
-    );
-    const receivedSnapshot = await getDocs(receivedQuery);
-    receivedSnapshot.forEach((doc) => {
-      const user = doc.data();
-      if (!user.sentTo == loggedInUser.id) {
+    // same person lai message garda yeuta matra query fecth garne (double same message aairathyo)
+    if (!sentBy == sentTo) {
+      const receivedQuery = query(
+        collection(db, "messages"),
+        //sent by cyrus@gmail.com
+        where("sentBy", "==", sentTo),
+        where("sentTo", "==", sentBy)
+      );
+      const receivedSnapshot = await getDocs(receivedQuery);
+      receivedSnapshot.forEach((doc) => {
+        const user = doc.data();
+
         allMessages.push(user);
-      }
-    });
+      });
+    }
 
     // arrange message in order
     allMessages.forEach((obj) => {
