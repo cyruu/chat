@@ -34,20 +34,20 @@ function ChatFooter({ sentBy, sentTo, selectedUserId }) {
     });
     // sent by others and received by cyrus@gmail.com
     // same person lai message garda yeuta matra query fecth garne (double same message aairathyo)
-    if (!loggedInUser.id == selectedUserId) {
-      const receivedQuery = query(
-        collection(db, "messages"),
-        //sent by cyrus@gmail.com
-        where("sentBy", "==", selectedUserId),
-        where("sentTo", "==", loggedInUser.id)
-      );
-      const receivedSnapshot = await getDocs(receivedQuery);
-      receivedSnapshot.forEach((doc) => {
-        const user = doc.data();
+    // if (!loggedInUser.id == selectedUserId) {
+    const receivedQuery = query(
+      collection(db, "messages"),
+      //sent by cyrus@gmail.com
+      where("sentBy", "==", selectedUserId),
+      where("sentTo", "==", loggedInUser.id)
+    );
+    const receivedSnapshot = await getDocs(receivedQuery);
+    receivedSnapshot.forEach((doc) => {
+      const user = doc.data();
 
-        allMessages.push(user);
-      });
-    }
+      allMessages.push(user);
+    });
+    // }
 
     // arrange message in order
     allMessages.forEach((obj) => {
@@ -77,26 +77,26 @@ function ChatFooter({ sentBy, sentTo, selectedUserId }) {
         sentMessage: message,
       };
       await firebaseServices.sendMessage(msg);
-      // getMessages();
+      getMessages();
       setMessage("");
       console.log("ADDED");
     } else {
       console.log("empty");
     }
   };
-  useEffect(() => {
-    // if (!selectedUserId) console.log("not user selects");
-    const unsubscribe = onSnapshot(collection(db, "messages"), (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type == "added") {
-          getMessages();
-        }
-      });
-    });
-    return () => {
-      unsubscribe(); // Detach the listener when the component unmounts
-    };
-  }, []);
+  // useEffect(() => {
+  //   // if (!selectedUserId) console.log("not user selects");
+  //   const unsubscribe = onSnapshot(collection(db, "messages"), (snapshot) => {
+  //     snapshot.docChanges().forEach((change) => {
+  //       if (change.type == "added") {
+  //         getMessages();
+  //       }
+  //     });
+  //   });
+  //   return () => {
+  //     unsubscribe(); // Detach the listener when the component unmounts
+  //   };
+  // }, []);
   return (
     <form className="chatFooter" onSubmit={handleSendMessage}>
       <input

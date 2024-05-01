@@ -10,6 +10,7 @@ import {
 import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
 import { Message } from "../../../index";
+import { set } from "firebase/database";
 function ChatBody({ selectedUserId }) {
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
@@ -29,22 +30,22 @@ function ChatBody({ selectedUserId }) {
       allMessages.push(user);
     });
     // sent by others and received by cyrus@gmail.com
-    if (!loggedInUser.id == selectedUserId) {
-      const receivedQuery = query(
-        collection(db, "messages"),
-        //sent by cyrus@gmail.com
-        where("sentBy", "==", selectedUserId),
-        where("sentTo", "==", loggedInUser.id)
-      );
-      const receivedSnapshot = await getDocs(receivedQuery);
-      receivedSnapshot.forEach((doc) => {
-        const user = doc.data();
-        // afai send garda double message aairako thyo
-        // if (!user.sentTo == loggedInUser.id) {
-        allMessages.push(user);
-        // }
-      });
-    }
+    // if (!loggedInUser.id == selectedUserId) {
+    const receivedQuery = query(
+      collection(db, "messages"),
+      //sent by cyrus@gmail.com
+      where("sentBy", "==", selectedUserId),
+      where("sentTo", "==", loggedInUser.id)
+    );
+    const receivedSnapshot = await getDocs(receivedQuery);
+    receivedSnapshot.forEach((doc) => {
+      const user = doc.data();
+      // afai send garda double message aairako thyo
+      // if (!user.sentTo == loggedInUser.id) {
+      allMessages.push(user);
+      // }
+    });
+    // }
 
     // arrange message in order
     allMessages.forEach((obj) => {
@@ -62,13 +63,13 @@ function ChatBody({ selectedUserId }) {
     //send data to slice state
     dis(setAllMessages({ allMessages }));
   };
+
   useEffect(() => {
-    console.log("selected", selectedUserId);
     getMessages();
   }, [selectedUserId]);
 
   useEffect(() => {
-    if (allMessages.length < 15) {
+    if (allMessages.length < 12) {
       const scrollableDiv = document.querySelector(".scrollable");
       scrollableDiv.style.justifyContent = "flex-end";
     } else {
