@@ -60,7 +60,11 @@ function ChatBox() {
         </div>
         <ChatBody selectedUserId={selectedUserId} />
         {loggedInUser ? (
-          <ChatFooter sentBy={loggedInUser.id} sentTo={selectedUserId} />
+          <ChatFooter
+            sentBy={loggedInUser.id}
+            sentTo={selectedUserId}
+            selectedUserId={selectedUserId}
+          />
         ) : (
           ""
         )}

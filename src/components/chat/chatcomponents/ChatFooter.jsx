@@ -10,19 +10,21 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
-function ChatFooter({ sentBy, sentTo }) {
+function ChatFooter({ sentBy, sentTo, selectedUserId }) {
   const [message, setMessage] = useState("");
   const dis = useDispatch();
-  const loggedInUser = useSelector((state) => state.loggedInUser);
+  const { loggedInUser } = useSelector((state) => state.loggedInUser);
   const allMessages = useSelector((state) => state.allMessages);
+
   const getMessages = async () => {
+    // console.log("selected after send",se);
     const allMessages = [];
     // sent by cyrus@gmail.com and received by another user
     const sentQuery = query(
       collection(db, "messages"),
       //sent by cyrus@gmail.com
-      where("sentBy", "==", sentBy),
-      where("sentTo", "==", sentTo)
+      where("sentBy", "==", loggedInUser.id),
+      where("sentTo", "==", selectedUserId)
     );
     const sentSnapshot = await getDocs(sentQuery);
     sentSnapshot.forEach((doc) => {
@@ -32,12 +34,12 @@ function ChatFooter({ sentBy, sentTo }) {
     });
     // sent by others and received by cyrus@gmail.com
     // same person lai message garda yeuta matra query fecth garne (double same message aairathyo)
-    if (!sentBy == sentTo) {
+    if (!loggedInUser.id == selectedUserId) {
       const receivedQuery = query(
         collection(db, "messages"),
         //sent by cyrus@gmail.com
-        where("sentBy", "==", sentTo),
-        where("sentTo", "==", sentBy)
+        where("sentBy", "==", selectedUserId),
+        where("sentTo", "==", loggedInUser.id)
       );
       const receivedSnapshot = await getDocs(receivedQuery);
       receivedSnapshot.forEach((doc) => {
@@ -59,7 +61,7 @@ function ChatFooter({ sentBy, sentTo }) {
     allMessages.forEach((obj) => {
       obj.sentTime = new Date(obj.sentTime).toISOString();
     });
-    console.log(allMessages);
+    // console.log(allMessages);
     //send data to slice state
     dis(setAllMessages({ allMessages }));
   };
@@ -75,14 +77,26 @@ function ChatFooter({ sentBy, sentTo }) {
         sentMessage: message,
       };
       await firebaseServices.sendMessage(msg);
-      getMessages();
+      // getMessages();
       setMessage("");
       console.log("ADDED");
     } else {
       console.log("empty");
     }
   };
-
+  useEffect(() => {
+    // if (!selectedUserId) console.log("not user selects");
+    const unsubscribe = onSnapshot(collection(db, "messages"), (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type == "added") {
+          getMessages();
+        }
+      });
+    });
+    return () => {
+      unsubscribe(); // Detach the listener when the component unmounts
+    };
+  }, []);
   return (
     <form className="chatFooter" onSubmit={handleSendMessage}>
       <input

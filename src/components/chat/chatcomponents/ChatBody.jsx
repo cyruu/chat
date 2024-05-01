@@ -11,7 +11,6 @@ import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
 import { Message } from "../../../index";
 function ChatBody({ selectedUserId }) {
-  console.log("selected", selectedUserId);
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
   const allMessages = useSelector((state) => state.allMessages);
@@ -59,13 +58,15 @@ function ChatBody({ selectedUserId }) {
     allMessages.forEach((obj) => {
       obj.sentTime = new Date(obj.sentTime).toISOString();
     });
-    console.log("message", allMessages);
+    // console.log("message", allMessages);
     //send data to slice state
     dis(setAllMessages({ allMessages }));
   };
   useEffect(() => {
+    console.log("selected", selectedUserId);
     getMessages();
   }, [selectedUserId]);
+
   useEffect(() => {
     if (allMessages.length < 15) {
       const scrollableDiv = document.querySelector(".scrollable");
