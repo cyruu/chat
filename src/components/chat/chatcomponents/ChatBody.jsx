@@ -12,6 +12,7 @@ import { setAllMessages } from "../../../redux/slice";
 import { Message } from "../../../index";
 import { set } from "firebase/database";
 function ChatBody({ selectedUserId }) {
+  // use snapshot
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
   const allMessages = useSelector((state) => state.allMessages);
