@@ -11,6 +11,7 @@ import {
 import { db } from "../../../firebase/firebaseConfig";
 import { setAllMessages } from "../../../redux/slice";
 function ChatFooter({ sentBy, sentTo, selectedUserId }) {
+  // need real time update using useSnapshot
   const [message, setMessage] = useState("");
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
