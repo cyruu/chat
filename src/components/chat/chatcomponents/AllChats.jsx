@@ -6,7 +6,7 @@ function AllChats() {
   const allChatsIds = useSelector((state) => state.allChatsIds);
   const isSearching = useSelector((state) => state.isSearching);
   const filteredUsers = useSelector((state) => state.filteredUsers);
-
+  // need real time update
   return (
     <div className="allChats">
       {isSearching ? (
