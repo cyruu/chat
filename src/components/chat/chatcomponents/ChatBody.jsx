@@ -14,6 +14,7 @@ import { set } from "firebase/database";
 function ChatBody({ selectedUserId }) {
   // use snapshot
   const dis = useDispatch();
+
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
   const allMessages = useSelector((state) => state.allMessages);
   const getMessages = async () => {
@@ -71,6 +72,7 @@ function ChatBody({ selectedUserId }) {
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
           // getData();
+
           getMessages();
         }
       });
@@ -93,17 +95,19 @@ function ChatBody({ selectedUserId }) {
   }, [allMessages]);
 
   return (
-    <div className="chatBody scrollable">
-      {allMessages.length > 0 ? (
-        allMessages.map((msg, i) => {
-          return (
-            <Message key={i} message={msg.sentMessage} sentBy={msg.sentBy} />
-          );
-        })
-      ) : (
-        <p className="startConversation">Start conversation</p>
-      )}
-    </div>
+    <>
+      <div className="chatBody scrollable">
+        {allMessages.length > 0 ? (
+          allMessages.map((msg, i) => {
+            return (
+              <Message key={i} message={msg.sentMessage} sentBy={msg.sentBy} />
+            );
+          })
+        ) : (
+          <p className="startConversation">Start conversation</p>
+        )}
+      </div>
+    </>
   );
 }
 
