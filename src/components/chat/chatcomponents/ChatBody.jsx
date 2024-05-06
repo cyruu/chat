@@ -66,8 +66,19 @@ function ChatBody({ selectedUserId }) {
   };
 
   useEffect(() => {
-    getMessages();
+    onSnapshot(collection(db, "messages"), (snapshot) => {
+      // This function will be called whenever the 'messages' collection changes
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          // getData();
+          getMessages();
+        }
+      });
+    });
   }, [selectedUserId]);
+  // useEffect(() => {
+  //   getMessages();
+  // }, [selectedUserId]);
 
   useEffect(() => {
     if (allMessages.length < 12) {
