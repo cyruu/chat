@@ -102,9 +102,10 @@ function Chat({ userId }) {
       });
     });
   }, []);
-  // useEffect(() => {
-  //   getUserInfo();
-  // }, []);
+  useEffect(() => {
+    getUserInfo();
+    getLatestMessage();
+  }, []);
   // useEffect(() => {
   //   getLatestMessage();
   // }, [allMessages]);
