@@ -80,19 +80,19 @@ function ChatContainer() {
     // get username of all users that have sent or received message from this user
   };
 
-  useEffect(() => {
-    getData();
-  }, [allMessages]);
   // useEffect(() => {
-  //   onSnapshot(collection(db, "messages"), (snapshot) => {
-  //     // This function will be called whenever the 'messages' collection changes
-  //     snapshot.docChanges().forEach((change) => {
-  //       if (change.type === "added") {
-  //         getData();
-  //       }
-  //     });
-  //   });
-  // }, []);
+  //   getData();
+  // }, [allMessages]);
+  useEffect(() => {
+    onSnapshot(collection(db, "messages"), (snapshot) => {
+      // This function will be called whenever the 'messages' collection changes
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          getData();
+        }
+      });
+    });
+  }, []);
   return (
     <div className="chatContainer">
       <SideBar />

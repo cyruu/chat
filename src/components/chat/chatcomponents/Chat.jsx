@@ -7,6 +7,7 @@ import {
   where,
   orderBy,
   limit,
+  onSnapshot,
 } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedChatUserId } from "../../../redux/slice";
@@ -90,11 +91,23 @@ function Chat({ userId }) {
     }
   }
   useEffect(() => {
-    getUserInfo();
+    onSnapshot(collection(db, "messages"), (snapshot) => {
+      // This function will be called whenever the 'messages' collection changes
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          getUserInfo();
+          getLatestMessage();
+          // getData();
+        }
+      });
+    });
   }, []);
-  useEffect(() => {
-    getLatestMessage();
-  }, [allMessages]);
+  // useEffect(() => {
+  //   getUserInfo();
+  // }, []);
+  // useEffect(() => {
+  //   getLatestMessage();
+  // }, [allMessages]);
   return username ? (
     <button
       className={`chatButton  ${isSearching ? "isSearching" : ""}`}

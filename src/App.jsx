@@ -9,15 +9,6 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
 
 function App() {
-  useEffect(() => {
-    onSnapshot(collection(db, "messages"), (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if (change.type == "added") {
-          console.log("newMessage");
-        }
-      });
-    });
-  }, []);
   return (
     <>
       <Routes>
