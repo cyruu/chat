@@ -67,7 +67,7 @@ function ChatBody({ selectedUserId }) {
   };
 
   useEffect(() => {
-    onSnapshot(collection(db, "messages"), (snapshot) => {
+    const unsub = onSnapshot(collection(db, "messages"), (snapshot) => {
       // This function will be called whenever the 'messages' collection changes
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
@@ -77,6 +77,9 @@ function ChatBody({ selectedUserId }) {
         }
       });
     });
+    return () => {
+      unsub();
+    };
   }, [selectedUserId]);
   // useEffect(() => {
   //   getMessages();

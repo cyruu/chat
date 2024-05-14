@@ -76,7 +76,9 @@ function ChatContainer() {
       }
     });
     // console.log(allConvosId);
+
     dis(setAllChatsIds({ allConversationsIds: allConvosId }));
+
     // get username of all users that have sent or received message from this user
   };
 
@@ -84,7 +86,7 @@ function ChatContainer() {
   //   getData();
   // }, [allMessages]);
   useEffect(() => {
-    onSnapshot(collection(db, "messages"), (snapshot) => {
+    const unsub = onSnapshot(collection(db, "messages"), (snapshot) => {
       // This function will be called whenever the 'messages' collection changes
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
@@ -92,7 +94,10 @@ function ChatContainer() {
         }
       });
     });
-  }, []);
+    return () => {
+      unsub();
+    };
+  }, [allMessages.length]);
   return (
     <div className="chatContainer">
       <SideBar />
