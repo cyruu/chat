@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { setAllChatsIds } from "../../redux/slice";
-
+// Container
 function ChatContainer() {
   const dis = useDispatch();
   const { loggedInUser } = useSelector((state) => state.loggedInUser);
